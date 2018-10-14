@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default class AuthService {
     get headers() {
         return {
@@ -9,10 +11,14 @@ export default class AuthService {
 
     static async refreshToken(refresh) {
         const url = 'https://www.bungie.net/platform/app/oauth/token/'
-        const raw = await fetch(url, {
-            headers : this.headers,
+        const raw = await axios({
+            url,
             method  : 'POST',
-            body    : `grant_type=refresh_token&refresh_token=${refresh}`
+            headers : this.headers,
+            data    : {
+                grant_type: refresh_token,
+                refresh_token: refresh
+            }
         })
 
         const {access_token, refresh_token, membership_id} = await raw.json()

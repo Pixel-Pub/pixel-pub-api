@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "atob": "^2.1.1",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "bungie-sdk-alpha": "^0.0.28",
     "dotenv": "^6.0.0",
