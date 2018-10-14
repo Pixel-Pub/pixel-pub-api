@@ -45,6 +45,11 @@ const routes = [
         route: 'clan/:id/member',
         method: 'GET',
         action: Controllers.ClanMemberController.getAll
+    },
+    {
+        route:  '/util/validateAuth',
+        method: 'GET',
+        action: Controllers.UtilController.validateAuth
     }
 ]
 

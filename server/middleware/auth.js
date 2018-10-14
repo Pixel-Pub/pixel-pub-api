@@ -7,6 +7,7 @@ import atob from 'atob'
 const AuthMiddleware = async (ctx, next) => {
     const startTimer = Date.now()
 
+    console.log(ctx.ip, ctx.request.host, ctx.request.hostname)
     if (ctx.ip === process.env.ip || ctx.ip === process.env.pip) {
         return await next()
     }

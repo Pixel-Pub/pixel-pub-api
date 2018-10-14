@@ -13,7 +13,11 @@ const BungieMiddleware = async (ctx, next) => {
     }
 
     if (bungie.refreshToken) {
-        bungie = await AuthService.refreshToken(bungie.refreshToken)
+        try {
+            bungie = await AuthService.refreshToken(bungie.refreshToken)
+        } catch(e) {
+            bungie = {}
+        }
     }
 
     ctx.bungie = bungie
