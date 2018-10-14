@@ -1,39 +1,29 @@
-import axios from 'axios'
-import qs from 'qs'
+import fetch from 'node-fetch'
 import btoa from 'btoa'
-            
-export default class AuthService {
-    static get auth() {
-        return {
-            username: process.env.CLIENT_ID,
-            password: process.env.CLIENT_SECRET
-        }
-    }
 
+import { URLSearchParams } from 'url'
+
+export default class AuthService {
     static get headers() {
         return {
-            'X-API-KEY'    : process.env.BUNGIE_API_KEY,
-            'Content-Type' : 'application/x-www-form-url-encoded',
             'Authorization': 'Basic ' + btoa(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`)
         }
     }
 
     static async refreshToken(refresh) {
-        const url = 'https://www.bungie.net/platform/app/oauth/token/'
-        const config = {
-            url,
-            method  : 'POST',
+        const params = new URLSearchParams();
+        params.append('grant_type', 'refresh_token')
+        params.append('refresh_token', refresh)
+
+        const str = `grant_type=refresh_token&refresh_token=${refresh}`
+        const url = `https://www.bungie.net/platform/app/oauth/token/`
+        const raw = await fetch(url, {
             headers : AuthService.headers,
-            data    : qs.stringify({
-                grant_type: 'refresh_token',
-                refresh_token: refresh
-            })
-        }
+            method  : 'POST',
+            body    : params
+        })
 
-        config.params = config.data
-        const {response} = await axios(config)
-
-        const {access_token, refresh_token, membership_id} = response.data
+        const {access_token, refresh_token, membership_id} = await raw.json()
 
         return {
             accessToken: access_token,
