@@ -21,7 +21,7 @@ export default class AuthService {
             }
         })
 
-        const {access_token, refresh_token, membership_id} = await raw.json()
+        const {access_token, refresh_token, membership_id} = response.data
 
         return {
             accessToken: access_token,
