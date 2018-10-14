@@ -1,7 +1,8 @@
 import axios from 'axios'
+import btoa from 'btoa'
 
 export default class AuthService {
-    get headers() {
+    static get headers() {
         return {
             'X-API-KEY'    : process.env.BUNGIE_API_KEY,
             'Content-Type' : 'application/x-www-form-url-encoded',
@@ -11,10 +12,10 @@ export default class AuthService {
 
     static async refreshToken(refresh) {
         const url = 'https://www.bungie.net/platform/app/oauth/token/'
-        const raw = await axios({
+        const {response} = await axios({
             url,
             method  : 'POST',
-            headers : this.headers,
+            headers : AuthService.headers,
             data    : {
                 grant_type: refresh_token,
                 refresh_token: refresh
