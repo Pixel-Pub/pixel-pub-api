@@ -24,7 +24,7 @@ export default class MemberService {
             return {}
         }
 
-        const {bungie_clan_id} = activeRecord
+        const {bungie_clan_id, membership_type} = activeRecord
 
         const [bungieUser, bungieClan] = await Promise.all([
             new User(id),
@@ -33,6 +33,7 @@ export default class MemberService {
 
         return {
             ...bungieUser.clean(),
+            type: membership_type,
             clan: bungieClan.clean()
         }
     }
