@@ -1,5 +1,5 @@
 import MembershipDB, {hasClan} from '../models/bungieMembership'
-import MemberDB, {hasMembership} from '../models/bungieMembership'
+import MemberDB, {hasMembership} from '../models/bungieMember'
 import {Op} from 'sequelize'
 import moment from 'moment'
 

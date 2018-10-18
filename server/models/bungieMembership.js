@@ -1,5 +1,11 @@
 import Sqlize from 'sequelize'
 
+export const hasMember = (membership, member) => {
+    membership.hasOne(member, {
+        foreignKey: 'member_id',
+        as        : 'membership'
+    });
+}
 export default function Model(database) {
     return database.define('bungie_membership', 
         {
