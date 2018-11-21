@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Wrath Incarnate API",
   "scripts": {
-    "start": "start dist/",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel server --out-dir dist"
   },
