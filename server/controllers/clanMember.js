@@ -1,7 +1,6 @@
-import SelectMembersFromClan from '../queries/selectMembersFromClan'
+import Clan from '../models/clan';
 
 export default class ClanMemberController {
-
     /**
      * path: GET /clan/:clanId/member
      *
@@ -10,16 +9,21 @@ export default class ClanMemberController {
      */
     async getAll(ctx) {
         const {id} = ctx.params
+        const clan = await Clan.where('GroupId').equals(id.toString()).findOne()
 
-        const replacements = {
-            clanId: id
+        if (clan) {
+            ctx.body   = clan.get('Members')
+            ctx.status = 200
+        } else {
+            ctx.body   = 'No clan Found'
+            ctx.status = 404
         }
+    }
 
-        const type = ctx.db.QueryTypes.SELECT
-
-        const results = await ctx.db.query(SelectMembersFromClan, {replacements, type})
-
-        ctx.body = results
-        ctx.status = 200
+    /**
+     * path: POST /
+     */
+    async kick(ctx) {
+        const {id, type} = ctx.params
     }
 }

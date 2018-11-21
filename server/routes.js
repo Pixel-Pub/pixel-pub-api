@@ -37,11 +37,6 @@ const routes = [
         action: Controllers.ClanController.create
     },
     {
-        route:  'member/:id',
-        method: 'GET',
-        action: Controllers.MemberController.get
-    },
-    {
         route: 'clan/:id/member',
         method: 'GET',
         action: Controllers.ClanMemberController.getAll

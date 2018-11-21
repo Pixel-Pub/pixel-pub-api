@@ -1,5 +1,3 @@
-import MemberService from '../services/member'
-
 export default class UtilController {
     /**
      * path: GET /util/validateAuth

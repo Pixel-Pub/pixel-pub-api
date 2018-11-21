@@ -1,10 +1,4 @@
-import Sqlize from 'sequelize'
+import mongoose from 'mongoose'
+import ApiKey from '../schemas/apiKey'
 
-export default function Model(database) {
-    return database.define('api_key',
-        {
-            key:      Sqlize.STRING,
-            username: Sqlize.STRING
-        }
-    )
-}
+export default mongoose.model("apiKeys", ApiKey)

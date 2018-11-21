@@ -1,5 +1,5 @@
-import ApiKeyDB from '../models/apiKey'
-import atob from 'atob'
+import ApiKey from '../models/apiKey'
+
 /**
  * @param {*} ctx 
  * @param {*} next 
@@ -12,13 +12,9 @@ const AuthMiddleware = async (ctx, next) => {
         return await next()
     }
 
-    const ApiKey = new ApiKeyDB(ctx.db)
-
     try {
-        const key    = ctx.request.header['x-api-key']
-        const user   = await ApiKey.findOne({
-            where: {key}
-        })
+        const key  = ctx.request.header['x-api-key']
+        const user = await ApiKey.where('Key').equals(key)
 
         if (user === null) {
             throw new Error('Authentication failed')
